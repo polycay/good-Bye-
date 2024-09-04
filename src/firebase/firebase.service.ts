@@ -15,8 +15,7 @@ const serviceAccount = require(firebaseKeyPath);
 @Injectable()
 export class FirebaseService {
   constructor() {
-    const serviceAccount = require('../../firebase-key.json');
-    
+
     if (!admin.apps.length) {
       admin.initializeApp({
         credential: admin.credential.cert(serviceAccount),
@@ -28,9 +27,9 @@ export class FirebaseService {
   async uploadImage(file: Buffer, filename: string): Promise<string> {
     const bucket = admin.storage().bucket();
     const fileUpload = bucket.file(filename);
-    
+
     await fileUpload.save(file);
-    
+
     return fileUpload.publicUrl();
   }
 
