@@ -1,6 +1,17 @@
 import { Injectable } from '@nestjs/common';
 import * as admin from 'firebase-admin';
 
+require('dotenv').config();
+
+const firebaseKeyPath = process.env.FIREBASE_KEY_PATH || '';
+
+if (!firebaseKeyPath) {
+  throw new Error('FIREBASE_KEY_PATH is not defined');
+}
+
+const serviceAccount = require(firebaseKeyPath);
+
+
 @Injectable()
 export class FirebaseService {
   constructor() {
